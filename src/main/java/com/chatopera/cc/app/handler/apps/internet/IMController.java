@@ -360,7 +360,14 @@ public class IMController extends Handler {
             } else {
                 userID = MainUtils.genIDByKey(sessionid);
             }
-            String nickname = "Guest_" + pin;
+            //Modify by Andy
+            String nickname;
+            if(StringUtils.isNotBlank(pin)){
+                  nickname = "玩家ID:" + pin;
+            }else{
+                  nickname ="试玩玩家";
+            }
+
             boolean consult = true;                //是否已收集用户信息
             SessionConfig sessionConfig = AutomaticServiceDist.initSessionConfig(orgi);
 

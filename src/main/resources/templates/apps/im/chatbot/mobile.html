@@ -238,12 +238,12 @@
 </div>
 <div class="chat-above" id="above" style="height:calc(100% - 60px);padding-bottom:100px;">
     <!-- <div class="clearfix message  welcome">
-        <span id="welcome-message">${(inviteData.dialog_message!'欢迎您来咨询！欢迎使用春松客服！如需帮助请联系 info@chatopera.com')?no_esc}</span>
+        <span id="welcome-message">${(inviteData.dialog_message!'欢迎您来咨询！欢迎使用九州客服！如需帮助请联系 info@chatopera.com')?no_esc}</span>
     </div> -->
     <#if chatMessageList?? && chatMessageList.content??>
     <#list chatMessageList.content?reverse as chatMessage>
     <#if chatMessage.userid?? && userid?? && chatMessage.calltype?? && chatMessage.calltype = "呼入">
-    <div class="clearfix chat-block">
+    <div class="clearfix chat-block">·
         <div class="chat-right">
             <img class="user-img" src="/im/img/user.png" alt="">
             <div class="chat-message">
