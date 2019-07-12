@@ -65,54 +65,36 @@ import java.util.List;
 @EnableAsync
 public class IMController extends Handler {
     private final static Logger logger = LoggerFactory.getLogger(IMController.class);
-
-
     @Value("${uk.im.server.host}")
     private String host;
-
     @Value("${uk.im.server.port}")
     private Integer port;
-
     @Value("${cs.im.server.ssl.port}")
     private Integer sslPort;
-
     @Value("${web.upload-path}")
     private String path;
-
     @Autowired
     private StreamingFileRepository streamingFileRepository;
-
     @Autowired
     private JpaBlobHelper jpaBlobHelper;
-
     @Autowired
     private ConsultInviteRepository inviteRepository;
-
     @Autowired
     private ChatMessageRepository chatMessageRes;
-
     @Autowired
     private AgentServiceSatisRepository agentServiceSatisRes;
-
     @Autowired
     private InviteRecordRepository inviteRecordRes;
-
     @Autowired
     private LeaveMsgRepository leaveMsgRes;
-
-
     @Autowired
     private AttachmentRepository attachementRes;
-
     @Autowired
     private ContactsRepository contactsRes;
-
     @Autowired
     private AgentUserContactsRepository agentUserContactsRes;
-
     @Autowired
     private SNSAccountRepository snsAccountRepository;
-
     @RequestMapping("/{id}")
     @Menu(type = "im", subtype = "point", access = true)
     public ModelAndView point(HttpServletRequest request, HttpServletResponse response,
@@ -125,7 +107,6 @@ public class IMController extends Handler {
         String sessionid = request.getSession().getId();
         if (StringUtils.isNotBlank(id)) {
             view.addObject("hostname", request.getServerName());
-
             SystemConfig systemConfig = MainUtils.getSystemConfig();
             if (systemConfig != null && systemConfig.isEnablessl()) {
                 view.addObject("schema", "https");
@@ -139,15 +120,10 @@ public class IMController extends Handler {
                 view.addObject("port", request.getServerPort());
             }
             view.addObject("appid", id);
-
-
             view.addObject("client", MainUtils.getUUID());
             view.addObject("sessionid", sessionid);
-
             view.addObject("ip", MainUtils.md5(request.getRemoteAddr()));
-
             view.addObject("mobile", CheckMobile.check(request.getHeader("User-Agent")));
-
             CousultInvite invite = OnlineUserUtils.cousult(id, orgi, inviteRepository);
             if (invite != null) {
                 orgi = invite.getOrgi();
@@ -195,7 +171,6 @@ public class IMController extends Handler {
                 userHistory.setOrgi(invite.getOrgi());
                 userHistory.setAppid(id);
                 userHistory.setSessionid(sessionid);
-
                 String ip = MainUtils.getIpAddr(request);
                 userHistory.setHostname(ip);
                 userHistory.setIp(ip);
@@ -204,12 +179,10 @@ public class IMController extends Handler {
                 userHistory.setProvince(ipdata.getProvince());
                 userHistory.setCity(ipdata.getCity());
                 userHistory.setIsp(ipdata.getIsp());
-
                 BrowserClient client = MainUtils.parseClient(request);
                 userHistory.setOstype(client.getOs());
                 userHistory.setBrowser(client.getBrowser());
                 userHistory.setMobile(CheckMobile.check(request.getHeader("User-Agent")) ? "1" : "0");
-
                 if (invite.isSkill()) {
                     /***
                      * 查询 技能组 ， 缓存？
@@ -248,7 +221,6 @@ public class IMController extends Handler {
 
     /**
      * 延时获取用户端浏览器的跟踪ID
-     *
      * @param request
      * @param response
      * @param orgi
